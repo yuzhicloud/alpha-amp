@@ -20,20 +20,28 @@ public class NodeService {
 		this.nodeRepository = nodeRepository;
 	}
 	
-	public Optional<Node> getNodeById(Long id){
+	public Node create(Node user) {
+		return nodeRepository.save(user);
+	}
+	
+	public Optional<Node> delete(int id) {
+		Optional<Node> node = findById(new Long(id));
+		if(node!= null){
+			nodeRepository.delete(node.get());
+		}
+		return node;
+	}
+	
+	public List findAll() {
+		return nodeRepository.findAll();
+	}
+	
+	public Optional<Node> findById(Long id) {
 		return nodeRepository.findById(id);
 	}
 	
-	public void deleteNodeById(Long id){
-		nodeRepository.deleteById(id);
-	}
-	
-	public Node updateNode(Long id){
-		return null;
-	}
-	
-	public List<Node> getAllNodes(){
-		return nodeRepository.findAll();
+	public Node update(Node node) {
+		return nodeRepository.save(node);
 	}
 }
 

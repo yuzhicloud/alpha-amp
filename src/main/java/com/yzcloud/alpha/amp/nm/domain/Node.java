@@ -41,6 +41,23 @@ public class Node implements Serializable {
 	private String status;
 	
 	
+	public Node(){}
+	
+	public Node(String name,
+	            String ipAddr,
+	            String user,
+	            String password,
+	            String location,
+	            String status){
+	
+		this.name = name;
+		this.ipAddr = ipAddr;
+		this.user = user;
+		this.password = password;
+		this.location = location;
+		this.status = status;
+	}
+	
 	public long getId() {
 		return id;
 	}
