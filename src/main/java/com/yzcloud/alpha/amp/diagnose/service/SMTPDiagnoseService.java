@@ -1,7 +1,7 @@
 package com.yzcloud.alpha.amp.diagnose.service;
 
-import com.yzcloud.alpha.amp.diagnose.domain.DiagnoseTask;
-import com.yzcloud.alpha.amp.diagnose.domain.DiagnoseTaskTypeEnum;
+import com.yzcloud.alpha.amp.diagnose.domain.DiagnoseJob;
+import com.yzcloud.alpha.amp.diagnose.domain.DiagnoseProtocolEnum;
 import com.yzcloud.alpha.amp.nm.domain.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,28 +13,28 @@ import java.util.List;
 import java.util.Properties;
 
 @Service
-public class SMTPDiagnoseService implements  DiagnoseService{
+public class SMTPDiagnoseService implements DiagnoseJobService {
 	
 	private final Logger log = LoggerFactory.getLogger(SMTPDiagnoseService.class);
 	
 	@Override
-	public List<DiagnoseTask> diagnose(List<Node> nodeList) {
-		List<DiagnoseTask> taskList = new ArrayList<>();
+	public List<DiagnoseJob> diagnose(List<Node> nodeList) {
+		List<DiagnoseJob> jobList = new ArrayList<>();
 		try {
 			for (Node node : nodeList) {
-				DiagnoseTask task = new DiagnoseTask();
-				task.setTaskType(DiagnoseTaskTypeEnum.SMTP);
+				DiagnoseJob job = new DiagnoseJob();
+				job.setProtocol(DiagnoseProtocolEnum.SMTP.toString());
 				log.debug("Start NodeRepository Diagnose:" + node.toString());
 				long startTime = System.currentTimeMillis();
-				task.setExpectResult(sendMail(node.getIpAddr()));
+				job.setResult(sendMail(node.getIpAddr()));
 				long endTime = System.currentTimeMillis();
-				taskList.add(task);
+				jobList.add(job);
 			}
 			log.debug("End NodeRepository Diagnose");
 		}catch (Exception ex){
 			ex.printStackTrace();
 		}
-		return taskList;
+		return jobList;
 	}
 	
 	public String sendMail(String ip)throws Exception{

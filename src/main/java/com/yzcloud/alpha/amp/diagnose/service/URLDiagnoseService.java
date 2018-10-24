@@ -1,7 +1,7 @@
 package com.yzcloud.alpha.amp.diagnose.service;
 
-import com.yzcloud.alpha.amp.diagnose.domain.DiagnoseTask;
-import com.yzcloud.alpha.amp.diagnose.domain.DiagnoseTaskTypeEnum;
+import com.yzcloud.alpha.amp.diagnose.domain.DiagnoseJob;
+import com.yzcloud.alpha.amp.diagnose.domain.DiagnoseProtocolEnum;
 import com.yzcloud.alpha.amp.nm.domain.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,22 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class URLDiagnoseService implements DiagnoseService{
+public class URLDiagnoseService implements DiagnoseJobService {
 	
 	private final Logger log = LoggerFactory.getLogger(URLDiagnoseService.class);
 	
 	@Override
-	public List<DiagnoseTask> diagnose(List<Node> nodeList) {
-		List<DiagnoseTask> taskList = new ArrayList<>();
+	public List<DiagnoseJob> diagnose(List<Node> nodeList) {
+		List<DiagnoseJob> taskList = new ArrayList<>();
 		
 		for(Node node : nodeList){
-			DiagnoseTask task = new DiagnoseTask();
-			task.setTaskType(DiagnoseTaskTypeEnum.URL);
+			DiagnoseJob job = new DiagnoseJob();
+			job.setProtocol(DiagnoseProtocolEnum.URL.toString());
 			log.debug("Start NodeRepository Diagnose:" + node.toString());
 			long startTime = System.currentTimeMillis();
-			task.setExpectResult(urlChecking(node.getIpAddr()));
+			job.setResult(urlChecking(node.getIpAddr()));
 			long endTime = System.currentTimeMillis();
-			taskList.add(task);
+			taskList.add(job);
 		}
 		log.debug("End NodeRepository Diagnose" );
 		return taskList;

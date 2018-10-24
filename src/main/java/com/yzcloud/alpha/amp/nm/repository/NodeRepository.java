@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NodeRepository extends JpaRepository<Node,Long> {
-	//Optional<Node> update(Node node);
 }
 
