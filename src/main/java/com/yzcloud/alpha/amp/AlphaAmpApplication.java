@@ -22,11 +22,7 @@ public class AlphaAmpApplication {
 	public CommandLineRunner demo(NodeRepository repository){
 		return (args) -> {
 			// save a couple of customers
-			repository.save(new Node("nodexx1", "192.168.1.1","","","",""));
-			repository.save(new Node("nodexx2", "192.168.1.2","","","",""));
-			repository.save(new Node("nodexx3", "192.168.1.3","","","",""));
-			repository.save(new Node("nodexx4", "192.168.1.4","","","",""));
-			repository.save(new Node("nodexx5", "192.168.1.5","","","",""));
+			repository.save(new Node("nodexx1", "47.106.227.209","","","",""));
 			
 			// fetch all customers
 			log.info("Node found with findAll():");

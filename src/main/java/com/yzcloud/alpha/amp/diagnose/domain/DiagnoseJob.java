@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table( name = "alpha_diagnose_task")
+@Table( name = "alpha_diagnose_job")
 public class DiagnoseJob implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -38,11 +38,13 @@ public class DiagnoseJob implements Serializable {
 	
 	public DiagnoseJob(String nodeIpAddr,
 	                   String protocol,
-	                   String result
+	                   String result,
+	                   String issues
 	                    ){
 		this.nodeIpAddr = nodeIpAddr;
 		this.protocol = protocol;
 		this.result = result;
+		this.issues = issues;
 	}
 	
 	public static long getSerialVersionUID() {
@@ -96,6 +98,7 @@ public class DiagnoseJob implements Serializable {
 			", nodeIpAddr='" + nodeIpAddr+ '\'' +
 			", protocol='" + protocol+ '\'' +
 			", result='" + result+ '\'' +
+			", issues='" + issues+ '\'' +
 			"}";
 	}
 }

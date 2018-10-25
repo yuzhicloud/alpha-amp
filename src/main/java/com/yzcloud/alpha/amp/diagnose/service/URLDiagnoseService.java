@@ -19,19 +19,20 @@ public class URLDiagnoseService implements DiagnoseJobService {
 	
 	@Override
 	public List<DiagnoseJob> diagnose(List<Node> nodeList) {
-		List<DiagnoseJob> taskList = new ArrayList<>();
+		List<DiagnoseJob> jobList = new ArrayList<>();
 		
 		for(Node node : nodeList){
 			DiagnoseJob job = new DiagnoseJob();
+			job.setNodeIpAddr(node.getIpAddr());
 			job.setProtocol(DiagnoseProtocolEnum.URL.toString());
 			log.debug("Start NodeRepository Diagnose:" + node.toString());
 			long startTime = System.currentTimeMillis();
 			job.setResult(urlChecking(node.getIpAddr()));
 			long endTime = System.currentTimeMillis();
-			taskList.add(job);
+			jobList.add(job);
 		}
 		log.debug("End NodeRepository Diagnose" );
-		return taskList;
+		return jobList;
 	}
 	
 	public String urlChecking(String ipAddr){
@@ -48,7 +49,6 @@ public class URLDiagnoseService implements DiagnoseJobService {
 			code = connection.getResponseCode();
 			if (code == 200) {
 				result = "-> Green <-\t" + "Code: " + code;
-				;
 			} else {
 				result = "-> Yellow <-\t" + "Code: " + code;
 			}
